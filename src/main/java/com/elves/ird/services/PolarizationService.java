@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.elves.ird.Polarization;
+import com.elves.ird.entities.Polarization;
 import com.elves.ird.repositories.PolarizationRepository;
 
 

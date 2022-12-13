@@ -2,8 +2,6 @@ package com.elves.ird.entities;
 
 import java.io.Serializable;
 
-import com.elves.ird.Polarization;
-
 public class Satellite implements Serializable {
 
 	private static final long serialVersionUID = 1L;

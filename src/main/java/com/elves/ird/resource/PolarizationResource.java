@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.elves.ird.Polarization;
+import com.elves.ird.entities.Polarization;
 import com.elves.ird.services.PolarizationService;
 
 @RestController

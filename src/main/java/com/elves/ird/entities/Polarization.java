@@ -1,4 +1,4 @@
-package com.elves.ird;
+package com.elves.ird.entities;
 
 import java.io.Serializable;
 
