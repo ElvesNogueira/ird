@@ -25,7 +25,13 @@ public class SatelliteService {
 		return obj.orElseThrow(() ->  new ObjectNotFoundException(id,"Object not found"));
 	}
 	
-	public void insert(Satellite satellite) {
+	public Satellite insert(Satellite satellite) {
+		if (satellite == null) {
+			throw new IllegalArgumentException("satellite cannot be null");
+		}
 		
+		return repository.save(satellite);
 	}
+	
+	
 }
