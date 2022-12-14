@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.elves.ird.entities.Satellite;
 
 @RestController
-@RequestMapping("/satellites")
+@RequestMapping("")
 public class IrdResource {
 	
 	@GetMapping

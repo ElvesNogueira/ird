@@ -2,22 +2,28 @@ package com.elves.ird.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Satellite implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	public Polarization polarization;
 
 	public Satellite() {
 
 	}
 
-	public Satellite(Long id, String name, Polarization polarization) {
+	public Satellite(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.polarization = polarization;
 	}
 
 	public Long getId() {
@@ -34,14 +40,6 @@ public class Satellite implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Polarization getPolarization() {
-		return polarization;
-	}
-
-	public void setPolarization(Polarization polarization) {
-		this.polarization = polarization;
 	}
 
 	@Override
