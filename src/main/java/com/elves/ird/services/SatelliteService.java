@@ -1,5 +1,6 @@
 package com.elves.ird.services;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +27,26 @@ public class SatelliteService {
 	}
 	
 	public Satellite insert(Satellite satellite) {
-		if (satellite == null) {
-			throw new IllegalArgumentException("satellite cannot be null");
-		}
 		
 		return repository.save(satellite);
+	}
+	
+	public void delete (Long id) {
+		repository.deleteById(id);
+	}
+	
+	public void update(Long id, Satellite obj) throws SQLException{
+		
+		
+		repository.deleteById(id); 
+		
+		
+		if(repository.findById(id)!= null) {
+		repository.save(obj);
+		obj.setId(id);
+		}else {
+			throw new SQLException("ERROR!");
+		}
 	}
 	
 	
