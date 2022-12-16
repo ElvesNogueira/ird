@@ -6,10 +6,14 @@ import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.elves.ird.entities.Satellite;
 import com.elves.ird.repositories.SatelliteRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class SatelliteService {
@@ -31,22 +35,29 @@ public class SatelliteService {
 		return repository.save(satellite);
 	}
 	
-	public void delete (Long id) {
-		repository.deleteById(id);
+	public void delete (Long id) throws Exception {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new Exception(e.getMessage());
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException(e.getMessage());
+		}
+		
+		
 	}
 	
-	public void update(Long id, Satellite obj) throws SQLException{
+	public Satellite update(Long id, Satellite obj) throws Exception{
 		
 		
-		repository.deleteById(id); 
-		
-		
-		if(repository.findById(id)!= null) {
-		repository.save(obj);
-		obj.setId(id);
-		}else {
-			throw new SQLException("ERROR!");
+		try {
+			Satellite entity = repository.getReferenceById(id);
+			update(id, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new Exception(e.getMessage());
 		}
+		
 	}
 	
 	
