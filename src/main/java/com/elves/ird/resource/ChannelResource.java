@@ -1,4 +1,5 @@
 package com.elves.ird.resource;
+
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,38 +14,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.elves.ird.entities.IRD;
-import com.elves.ird.services.IRDService;
+import com.elves.ird.entities.Channel;
+import com.elves.ird.services.ChannelService;
 
 @RestController
-@RequestMapping("IRDs")
-public class IrdResource {
-	
+@RequestMapping("/channels")
+public class ChannelResource {
+
 	@Autowired
-	IRDService service;
+	ChannelService service;
 
 	@GetMapping
-	public List<IRD> findAll() {
+	public List<Channel> findAll() {
 
-		List<IRD> list = new ArrayList<>();
+		List<Channel> list = new ArrayList<>();
 		list = service.findAll();
 
 		return list;
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<IRD> findById(@PathVariable Long id) {
+	public ResponseEntity<Channel> findById(@PathVariable Long id) {
 
-		IRD obj = service.findById(id);
+		Channel obj = service.findById(id);
 
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping(value = "/{id}")
-	public ResponseEntity<Void> insert(@RequestBody IRD obj) {
+	public ResponseEntity<Void> insert(@RequestBody Channel obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -57,9 +59,10 @@ public class IrdResource {
 		return ResponseEntity.noContent().build();
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody IRD obj) throws SQLException{
+	public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody Channel obj) throws SQLException{
 		service.update(id, obj);
 		return ResponseEntity.noContent().build();
 	}
+	
 	
 }
