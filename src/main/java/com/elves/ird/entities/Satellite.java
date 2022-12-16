@@ -16,6 +16,9 @@ public class Satellite implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+//	@OneToOne
+//	private IRD ird;
 
 	public Satellite() {
 
@@ -24,6 +27,7 @@ public class Satellite implements Serializable {
 	public Satellite(Long id, String name) {
 		this.id = id;
 		this.name = name;
+//		this.ird = ird;
 	}
 
 	public Long getId() {
@@ -41,7 +45,18 @@ public class Satellite implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+//	public IRD getIrd() {
+//		return ird;
+//	}
+//
+//	public void setIrd(IRD ird) {
+//		this.ird = ird;
+//	}
+	
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

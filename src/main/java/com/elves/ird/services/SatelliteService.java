@@ -1,10 +1,10 @@
 package com.elves.ird.services;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.ObjectNotFoundException;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -52,7 +52,7 @@ public class SatelliteService {
 		
 		try {
 			Satellite entity = repository.getReferenceById(id);
-			update(id, obj);
+			upadateData(entity, obj);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
 			throw new Exception(e.getMessage());
@@ -60,5 +60,9 @@ public class SatelliteService {
 		
 	}
 	
+	private void upadateData(Satellite entity, Satellite obj) {
+
+		entity.setName(obj.getName());
+	}
 	
 }

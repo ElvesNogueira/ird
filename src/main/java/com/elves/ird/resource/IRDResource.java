@@ -1,6 +1,5 @@
 package com.elves.ird.resource;
 import java.net.URI;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,18 +20,18 @@ import com.elves.ird.services.IRDService;
 
 @RestController
 @RequestMapping("IRDs")
-public class IrdResource {
-	
+public class IRDResource {
+
 	@Autowired
 	IRDService service;
 
 	@GetMapping
-	public List<IRD> findAll() {
+	public ResponseEntity<List<IRD>>  findAll() {
 
 		List<IRD> list = new ArrayList<>();
 		list = service.findAll();
 
-		return list;
+		return ResponseEntity.ok().body(list) ;
 	}
 
 	@GetMapping(value = "/{id}")
@@ -51,15 +50,16 @@ public class IrdResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id){
+	public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception{
 		service.delete(id);
 		
 		return ResponseEntity.noContent().build();
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody IRD obj) throws SQLException{
+	public ResponseEntity<IRD> update(@PathVariable Long id,@RequestBody IRD obj) throws Exception{
 		service.update(id, obj);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().body(obj);
 	}
+	
 	
 }

@@ -1,8 +1,6 @@
 package com.elves.ird.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -21,10 +19,14 @@ public class IRD implements Serializable {
 	private String model;
 	private Long tid;
 	private Long ua;
-	private Polarization polarization;
+	//private Polarization polarization;
+	
+//	@OneToMany(mappedBy ="id")
+	//List<Channel> list = new ArrayList<>();
 	
 	
-	List<Channel> list = new ArrayList<>();
+//	@OneToOne
+	private Satellite satellite;
 	
 	
 
@@ -32,12 +34,13 @@ public class IRD implements Serializable {
 
 	}
 
-	public IRD(Long id, String model, Long tid, Long ua, Polarization polarization) {
+	public IRD(Long id, String model, Long tid, Long ua) {
 		this.id = id;
 		this.model = model;
 		this.tid = tid;
 		this.ua = ua;
-		this.polarization = polarization;
+//		this.polarization = polarization;
+//		this.satellite = satellite;
 	}
 
 	public Long getId() {
@@ -72,16 +75,24 @@ public class IRD implements Serializable {
 		this.ua = ua;
 	}
 
-	public Polarization getPolarization() {
-		return polarization;
+//	public Polarization getPolarization() {
+//		return polarization;
+//	}
+//
+//	public void setPolarization(Polarization polarization) {
+//		this.polarization = polarization;
+//	}
+	
+//	public List<Channel> getList() {
+//		return list;
+//	}
+
+	public Satellite getSatellite() {
+		return satellite;
 	}
 
-	public void setPolarization(Polarization polarization) {
-		this.polarization = polarization;
-	}
-	
-	public List<Channel> getChannel(){
-		return list;
+	public void setSatellite(Satellite satellite) {
+		this.satellite = satellite;
 	}
 
 	@Override

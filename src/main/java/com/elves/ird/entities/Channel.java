@@ -3,25 +3,26 @@ package com.elves.ird.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "channel")
 public class Channel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private Integer sid;
-	@JsonIgnore
-	private IRD ird;
+//	@JsonIgnore
+//	@ManyToOne
+	//private IRD ird;
 
 	public Channel() {
 
@@ -51,13 +52,13 @@ public class Channel implements Serializable {
 		this.sid = sid;
 	}
 
-	public IRD getIrd() {
-		return ird;
-	}
-
-	public void setIrd(IRD ird) {
-		this.ird = ird;
-	}
+//	public IRD getIrd() {
+//		return ird;
+//	}
+//
+//	public void setIrd(IRD ird) {
+//		this.ird = ird;
+//	}
 
 	@Override
 	public int hashCode() {
