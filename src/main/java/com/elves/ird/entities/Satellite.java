@@ -1,13 +1,17 @@
 package com.elves.ird.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "tb_satellite")
 public class Satellite implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,8 +21,11 @@ public class Satellite implements Serializable {
 	private Long id;
 	private String name;
 	
-//	@OneToOne
-//	private IRD ird;
+	@OneToOne
+	private IRD ird;
+	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	List<IRD> list = new ArrayList<>();
 
 	public Satellite() {
 
@@ -27,7 +34,6 @@ public class Satellite implements Serializable {
 	public Satellite(Long id, String name) {
 		this.id = id;
 		this.name = name;
-//		this.ird = ird;
 	}
 
 	public Long getId() {
@@ -46,15 +52,11 @@ public class Satellite implements Serializable {
 		this.name = name;
 	}
 	
-//	public IRD getIrd() {
-//		return ird;
-//	}
-//
-//	public void setIrd(IRD ird) {
-//		this.ird = ird;
-//	}
-	
-	
+	public IRD getIrd() {
+		
+		return ird;
+	}
+
 	
 	
 	@Override

@@ -1,46 +1,52 @@
 package com.elves.ird.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "tb_IRD")
 public class IRD implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String model;
 	private Long tid;
 	private Long ua;
-	//private Polarization polarization;
-	
-//	@OneToMany(mappedBy ="id")
-	//List<Channel> list = new ArrayList<>();
-	
-	
-//	@OneToOne
+
+	@OneToOne
+	private Polarization polarization;
+
+	@OneToMany(mappedBy = "id")
+	List<Channel> list = new ArrayList<>();
+
+	@OneToOne
 	private Satellite satellite;
-	
-	
 
 	public IRD() {
 
 	}
 
-	public IRD(Long id, String model, Long tid, Long ua) {
+	public IRD(Long id, String model, Long tid, Long ua, Polarization polarization, Satellite satellite) {
 		this.id = id;
 		this.model = model;
 		this.tid = tid;
 		this.ua = ua;
-//		this.polarization = polarization;
-//		this.satellite = satellite;
+		this.polarization = polarization;
+		this.satellite = satellite;
 	}
 
 	public Long getId() {
@@ -75,17 +81,17 @@ public class IRD implements Serializable {
 		this.ua = ua;
 	}
 
-//	public Polarization getPolarization() {
-//		return polarization;
-//	}
-//
-//	public void setPolarization(Polarization polarization) {
-//		this.polarization = polarization;
-//	}
-	
-//	public List<Channel> getList() {
-//		return list;
-//	}
+	public Polarization getPolarization() {
+		return polarization;
+	}
+
+	public void setPolarization(Polarization polarization) {
+		this.polarization = polarization;
+	}
+
+	public List<Channel> getList() {
+		return list;
+	}
 
 	public Satellite getSatellite() {
 		return satellite;

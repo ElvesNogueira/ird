@@ -2,14 +2,17 @@ package com.elves.ird.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "polarization")
+@Table(name = "tb_polarization")
 public class Polarization implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -18,6 +21,10 @@ public class Polarization implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@JsonIgnore
+	@OneToOne
+	IRD ird;
 	
 	public Polarization () {
 		

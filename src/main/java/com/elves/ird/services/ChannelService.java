@@ -62,7 +62,7 @@ public class ChannelService {
 	private void upadateData(Channel entity, Channel obj) {
 
 		entity.setName(obj.getName());
-//		entity.setIrd(obj.getIrd());
+		entity.setIrd(obj.getIrd());
 		entity.setSid(obj.getSid());
 	}
 	
