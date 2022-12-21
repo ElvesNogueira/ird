@@ -25,8 +25,8 @@ public class IRD implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String model;
-	private Long tid;
-	private Long ua;
+	private String tid;
+	private String ua;
 
 	@OneToOne
 	private Polarization polarization;
@@ -42,7 +42,7 @@ public class IRD implements Serializable {
 
 	}
 
-	public IRD(Long id, String model, Long tid, Long ua, Polarization polarization, Satellite satellite) {
+	public IRD(Long id, String model, String tid, String ua, Polarization polarization, Satellite satellite) {
 		this.id = id;
 		this.model = model;
 		this.tid = tid;
@@ -67,19 +67,19 @@ public class IRD implements Serializable {
 		this.model = model;
 	}
 
-	public Long getTid() {
+	public String getTid() {
 		return tid;
 	}
 
-	public void setTid(Long tid) {
+	public void setTid(String tid) {
 		this.tid = tid;
 	}
 
-	public Long getUa() {
+	public String getUa() {
 		return ua;
 	}
 
-	public void setUa(Long ua) {
+	public void setUa(String ua) {
 		this.ua = ua;
 	}
 
