@@ -1,13 +1,16 @@
 package com.elves.ird.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,12 +23,10 @@ public class Satellite implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	
-	@OneToOne
-	private IRD ird;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	List<IRD> list = new ArrayList<>();
+
+
+	@OneToMany(mappedBy = "satellite")
+	private List<IRD> irds = new ArrayList<>();
 
 	public Satellite() {
 
@@ -52,13 +53,12 @@ public class Satellite implements Serializable {
 		this.name = name;
 	}
 	
-	public IRD getIrd() {
-		
-		return ird;
+	@JsonIgnore
+	public List<IRD> getIrd() {
+
+		return irds;
 	}
 
-	
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -60,7 +60,7 @@ public class IRDService {
 	private void upadateData(IRD entity, IRD obj) {
 
 		entity.setModel(obj.getModel());
-//		entity.setPolarization(obj.getPolarization());
+		entity.setPolarization(obj.getPolarization());
 		entity.setTid(obj.getTid());
 		entity.setUa(obj.getUa());
 	}

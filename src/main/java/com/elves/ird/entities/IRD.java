@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -30,10 +31,11 @@ public class IRD implements Serializable {
 	@OneToOne
 	private Polarization polarization;
 
-	@OneToMany(mappedBy = "id")
-	List<Channel> list = new ArrayList<>();
+	@OneToMany(mappedBy = "ird")
+	private List<Channel> channels = new ArrayList<>();
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "IRD_id")
 	private Satellite satellite;
 
 	public IRD() {
@@ -89,8 +91,8 @@ public class IRD implements Serializable {
 		this.polarization = polarization;
 	}
 
-	public List<Channel> getList() {
-		return list;
+	public List<Channel> getChannels() {
+		return channels;
 	}
 
 	public Satellite getSatellite() {

@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -23,8 +24,9 @@ public class Channel implements Serializable {
 	private Long id;
 	private String name;
 	private Integer sid;
-	@JsonIgnore
+	
 	@ManyToOne
+	@JoinColumn(name = "IRD_id")
 	private IRD ird;
 
 	public Channel() {
@@ -54,7 +56,8 @@ public class Channel implements Serializable {
 	public void setSid(Integer sid) {
 		this.sid = sid;
 	}
-
+	
+	@JsonIgnore
 	public IRD getIrd() {
 		return ird;
 	}
