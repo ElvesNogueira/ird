@@ -6,4 +6,6 @@ import com.elves.ird.entities.IRD;
 
 public interface IRDRepository extends JpaRepository<IRD, Long>{
 
+	
+	
 }

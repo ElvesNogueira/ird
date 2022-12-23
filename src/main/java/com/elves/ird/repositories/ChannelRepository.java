@@ -6,4 +6,7 @@ import com.elves.ird.entities.Channel;
 
 public interface ChannelRepository extends JpaRepository<Channel, Long>{
 
+		
+
+	
 }

@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.elves.ird.dto.IRDDTO;
 import com.elves.ird.entities.IRD;
 import com.elves.ird.repositories.IRDRepository;
 
@@ -64,5 +65,9 @@ public class IRDService {
 		entity.setTid(obj.getTid());
 		entity.setUa(obj.getUa());
 	}
-
+	
+	public IRD fromDTO(IRDDTO objDto) {
+		return new IRD(objDto.getId(), objDto.getModel(), objDto.getTid(),objDto.getUa(),objDto.getPolarization(),objDto.getSatellite());
+	}
+	
 }

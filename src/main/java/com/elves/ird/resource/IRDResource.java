@@ -42,10 +42,10 @@ public class IRDResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PostMapping(value = "/{id}")
+	@PostMapping()
 	public ResponseEntity<Void> insert(@RequestBody IRD obj) {
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

@@ -2,6 +2,7 @@ package com.elves.ird.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class ChannelService {
 		}
 		
 		
+	}
+	
+	public List<Channel> findChannelBySid(Integer sid) {
+		List<Channel> list = repository.findAll();
+		List<Channel> listNew = list.stream().filter(x -> x.getSid()==sid).collect(Collectors.toList());
+
+			return listNew;
 	}
 	
 	public Channel update(Long id, Channel obj) throws Exception{
