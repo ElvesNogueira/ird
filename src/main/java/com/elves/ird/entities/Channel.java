@@ -32,6 +32,16 @@ public class Channel implements Serializable {
 	public Channel() {
 
 	}
+	
+	
+
+	public Channel(Long id, String name, Integer sid) {
+		this.id = id;
+		this.name = name;
+		this.sid = sid;
+	}
+
+
 
 	public Long getId() {
 		return id;

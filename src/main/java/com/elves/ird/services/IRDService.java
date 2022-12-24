@@ -20,6 +20,9 @@ public class IRDService {
 
 	@Autowired
 	private IRDRepository repository;
+	
+	@Autowired
+	private ChannelService channelService;
 
 	public List<IRD> findAll() {
 		return repository.findAll();
@@ -65,9 +68,15 @@ public class IRDService {
 		entity.setTid(obj.getTid());
 		entity.setUa(obj.getUa());
 	}
-	
+
 	public IRD fromDTO(IRDDTO objDto) {
-		return new IRD(objDto.getId(), objDto.getModel(), objDto.getTid(),objDto.getUa(),objDto.getPolarization(),objDto.getSatellite());
+		return new IRD(objDto.getId(), objDto.getModel(), objDto.getTid(), objDto.getUa(), objDto.getPolarization(),
+				objDto.getSatellite());
 	}
 	
+	public void insertChannelById(Long id, Long ird) throws Exception {
+		IRD obj = findById(ird);
+		channelService.insertIRDById(id, obj);
+	}
+
 }
