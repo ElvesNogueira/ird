@@ -2,6 +2,7 @@ package com.elves.ird.dto;
 
 import java.io.Serializable;
 
+import com.elves.ird.entities.IRD;
 import com.elves.ird.entities.Polarization;
 import com.elves.ird.entities.Satellite;
 
@@ -19,13 +20,13 @@ public class IRDDTO implements Serializable{
 	public IRDDTO() {
 	}
 
-	public IRDDTO(Long id, String model, String tid, String ua, Polarization polarization, Satellite satellite) {
-		this.id = id;
-		this.model=model;
-		this.ua = ua;
-		this.tid = tid;
-		this.polarization=polarization;
-		this.satellite=satellite;
+	public IRDDTO(IRD obj) {
+		this.id = obj.getId();
+		this.model=obj.getModel();
+		this.ua = obj.getUa();
+		this.tid = obj.getTid();
+		this.polarization=obj.getPolarization();
+		this.satellite=obj.getSatellite();
 	}
 
 	public Long getId() {

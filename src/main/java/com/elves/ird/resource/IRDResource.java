@@ -2,6 +2,7 @@ package com.elves.ird.resource;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.elves.ird.dto.IRDDTO;
 import com.elves.ird.entities.IRD;
 import com.elves.ird.services.IRDService;
 
@@ -26,39 +28,45 @@ public class IRDResource {
 	IRDService service;
 
 	@GetMapping
-	public ResponseEntity<List<IRD>>  findAll() {
+	public ResponseEntity<List<IRDDTO>>  findAll() {
 
 		List<IRD> list = new ArrayList<>();
 		list = service.findAll();
+		List<IRDDTO> listDto = list.stream().map(x -> new IRDDTO(x)).collect(Collectors.toList());
 
-		return ResponseEntity.ok().body(list) ;
+		return ResponseEntity.ok().body(listDto) ;
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<IRD> findById(@PathVariable Long id) {
+	public ResponseEntity<IRDDTO> findById(@PathVariable Long id) {
 
 		IRD obj = service.findById(id);
 
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new IRDDTO(obj));
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Void> insert(@RequestBody IRD obj) {
+	public ResponseEntity<Void> insert(@RequestBody IRDDTO objDto) {
+		IRD obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception{
+	public ResponseEntity<IRDDTO> delete(@PathVariable Long id) throws Exception{
 		service.delete(id);
 		
 		return ResponseEntity.noContent().build();
 	}
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<IRD> update(@PathVariable Long id,@RequestBody IRD obj) throws Exception{
-		service.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<Void> update(@RequestBody IRDDTO objDto, @PathVariable Long id) throws Exception{
+	
+		IRD obj = service.fromDTO(objDto);
+		obj.setId(id);
+		service.update(obj.getId(), obj);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	
