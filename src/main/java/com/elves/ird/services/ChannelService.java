@@ -48,7 +48,7 @@ public class ChannelService {
 	}
 	
 	public List<Channel> findChannelBySid(Integer sid) {
-		List<Channel> list = repository.findAll();
+		List<Channel> list = findAll();
 		List<Channel> listNew = list.stream().filter(x -> x.getSid()==sid).collect(Collectors.toList());
 
 			return listNew;
