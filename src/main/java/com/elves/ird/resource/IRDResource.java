@@ -70,11 +70,11 @@ public class IRDResource {
 
 		return ResponseEntity.noContent().build();
 	}
-	
-	@PutMapping(value = "/InsertChannel/{id}/{ird}")
-	public ResponseEntity<Void> InsertChannelById(@PathVariable Long id, @PathVariable Long ird) throws Exception{
+
+	@PostMapping(value = "/InsertChannel/{ird}/{id}")
+	public ResponseEntity<Void> InsertChannelById(@PathVariable Long id, @PathVariable Long ird) throws Exception {
 		service.insertChannelById(id, ird);
-		
+
 		return ResponseEntity.noContent().build();
 	}
 }
