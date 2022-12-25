@@ -102,6 +102,14 @@ public class IRD implements Serializable {
 	public void setSatellite(Satellite satellite) {
 		this.satellite = satellite;
 	}
+	
+	public void addChannel(Channel channel) {
+		channels.add(channel);
+	}
+	
+	public void removeChannel(Channel channel) {
+		channels.remove(channel);
+	}
 
 	@Override
 	public int hashCode() {
