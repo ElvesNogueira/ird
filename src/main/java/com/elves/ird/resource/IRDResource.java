@@ -39,11 +39,11 @@ public class IRDResource {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<IRDDTO> findById(@PathVariable Long id) {
+	public ResponseEntity<IRD> findById(@PathVariable Long id) {
 
 		IRD obj = service.findById(id);
 
-		return ResponseEntity.ok().body(new IRDDTO(obj));
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@PostMapping()
