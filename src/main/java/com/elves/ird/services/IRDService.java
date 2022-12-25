@@ -2,6 +2,7 @@ package com.elves.ird.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.elves.ird.dto.IRDDTO;
+import com.elves.ird.entities.Channel;
 import com.elves.ird.entities.IRD;
 import com.elves.ird.repositories.IRDRepository;
 
@@ -77,6 +79,17 @@ public class IRDService {
 	public void insertChannelById(Long id, Long ird) throws Exception {
 		IRD obj = findById(ird);
 		channelService.insertIRDById(id, obj);
+	}
+	
+	public void deleteChannelById(Long id, Long ird) {
+		Channel ch= channelService.findById(id);
+		
+		Optional<IRD> obj = repository.findById(ird);
+		obj.get().removeChannel(ch);
+		repository.save(obj.get());
+
+
+		
 	}
 
 }
