@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.elves.ird.dto.IRDDTO;
+import com.elves.ird.entities.Channel;
 import com.elves.ird.entities.IRD;
 import com.elves.ird.services.IRDService;
 
@@ -71,10 +72,15 @@ public class IRDResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping(value = "/InsertChannel/{ird}/{id}")
-	public ResponseEntity<Void> InsertChannelById(@PathVariable Long id, @PathVariable Long ird) throws Exception {
-		service.insertChannelById(id, ird);
+	@PostMapping(value = "/InsertChannel/{id}")
+	public ResponseEntity<Void> InsertChannelById(@PathVariable Long id, @RequestBody Channel ch) throws Exception {
+		service.insertChannelById(id, ch);
 
+		return ResponseEntity.noContent().build();
+	}
+	@DeleteMapping(value = "deleteChannel/{id}")
+	public ResponseEntity<Void> deleteChannelById(@PathVariable Long id, @RequestBody Channel ch) throws Exception{
+		//service.deleteChannelById(id, ch);
 		return ResponseEntity.noContent().build();
 	}
 }

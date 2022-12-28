@@ -21,7 +21,7 @@ public class IRDService {
 
 	@Autowired
 	private IRDRepository repository;
-	
+
 	@Autowired
 	private ChannelService channelService;
 
@@ -74,21 +74,25 @@ public class IRDService {
 		return new IRD(objDto.getId(), objDto.getModel(), objDto.getTid(), objDto.getUa(), objDto.getPolarization(),
 				objDto.getSatellite());
 	}
-	
-	public void insertChannelById(Long id, Long ird) throws Exception {
-		IRD obj = findById(ird);
-		channelService.insertIRDById(id, obj);
+
+	public void insertChannelById(Long id, Channel ch) throws Exception {
+		IRD obj = findById(id);
+		obj.addChannel(channelService.findById(ch.getId()));
+		repository.save(obj);
 	}
-	
-	public void deleteChannelById(Long id, Long ird) {
-		Channel ch= channelService.findById(id);
-		
-		Optional<IRD> obj = repository.findById(ird);
-		obj.get().removeChannel(ch);
-		repository.save(obj.get());
 
+	public void deleteChannelById(Long id, Channel ch) throws Exception {
 
-		
+		try {
+			IRD entity = findById(id);
+
+			entity.removeChannel(channelService.findById(ch.getId()));
+
+			repository.save(entity);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
 	}
 
 }

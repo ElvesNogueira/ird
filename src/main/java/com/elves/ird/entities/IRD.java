@@ -108,6 +108,7 @@ public class IRD implements Serializable {
 	}
 	
 	public void removeChannel(Channel channel) {
+	
 		channels.remove(channel);
 	}
 
