@@ -27,12 +27,12 @@ public class ChannelResource {
 	ChannelService service;
 
 	@GetMapping
-	public ResponseEntity<List<Channel>>  findAll() {
+	public ResponseEntity<List<Channel>> findAll() {
 
 		List<Channel> list = new ArrayList<>();
 		list = service.findAll();
 
-		return ResponseEntity.ok().body(list) ;
+		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
@@ -42,31 +42,31 @@ public class ChannelResource {
 
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
 	@PostMapping(value = "/{id}")
 	public ResponseEntity<Void> insert(@RequestBody Channel obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception{
+	public ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
 		service.delete(id);
-		
+
 		return ResponseEntity.noContent().build();
 	}
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Channel> update(@PathVariable Long id,@RequestBody Channel obj) throws Exception{
+	public ResponseEntity<Channel> update(@PathVariable Long id, @RequestBody Channel obj) throws Exception {
 		service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@GetMapping(value = "/searchBySid/{sid}")
-	public ResponseEntity<List<Channel>> findbySid(@PathVariable Integer sid){
-		List<Channel> list=service.findChannelBySid(sid);
+	public ResponseEntity<List<Channel>> findbySid(@PathVariable Integer sid) {
+		List<Channel> list = service.findChannelBySid(sid);
 		return ResponseEntity.ok().body(list);
 	}
-	
-	
+
 }

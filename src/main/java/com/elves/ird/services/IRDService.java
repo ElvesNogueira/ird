@@ -75,21 +75,17 @@ public class IRDService {
 				objDto.getSatellite());
 	}
 
-	public void insertChannelById(Long id, Channel ch) throws Exception {
-		IRD obj = findById(id);
-		obj.addChannel(channelService.findById(ch.getId()));
-		repository.save(obj);
+	public void insertChannelById(Long id, Long ird) throws Exception {
+		IRD obj = findById(ird);
+		channelService.insertIRDById(id, obj);
 	}
 
-	public void deleteChannelById(Long id, Channel ch) throws Exception {
+	public void deleteChannelById(Long id) throws Exception {
 
 		try {
-			IRD entity = findById(id);
-
-			entity.removeChannel(channelService.findById(ch.getId()));
-
-			repository.save(entity);
-		} catch (Exception e) {
+			Channel ch = channelService.findById(id);
+			channelService.deleteIRDById(ch.getId());
+		} catch (EntityNotFoundException e) {
 			throw new Exception(e.getMessage());
 		}
 

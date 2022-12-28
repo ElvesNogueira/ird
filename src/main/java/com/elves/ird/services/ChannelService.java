@@ -23,7 +23,6 @@ public class ChannelService {
 	@Autowired
 	private ChannelRepository repository;
 
-
 	public List<Channel> findAll() {
 		return repository.findAll();
 	}
@@ -90,7 +89,17 @@ public class ChannelService {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
-	
+
+	public Channel deleteIRDById(Long id) throws Exception {
+		try {
+			Channel entity = findById(id);
+
+			entity.setIrd(null);
+
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 
 }

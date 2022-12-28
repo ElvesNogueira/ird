@@ -6,7 +6,7 @@ import com.elves.ird.entities.IRD;
 import com.elves.ird.entities.Polarization;
 import com.elves.ird.entities.Satellite;
 
-public class IRDDTO implements Serializable{
+public class IRDDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,17 +16,17 @@ public class IRDDTO implements Serializable{
 	private String tid;
 	private Polarization polarization;
 	private Satellite satellite;
-	
+
 	public IRDDTO() {
 	}
 
 	public IRDDTO(IRD obj) {
 		this.id = obj.getId();
-		this.model=obj.getModel();
+		this.model = obj.getModel();
 		this.ua = obj.getUa();
 		this.tid = obj.getTid();
-		this.polarization=obj.getPolarization();
-		this.satellite=obj.getSatellite();
+		this.polarization = obj.getPolarization();
+		this.satellite = obj.getSatellite();
 	}
 
 	public Long getId() {
@@ -36,7 +36,6 @@ public class IRDDTO implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getModel() {
 		return model;
@@ -78,7 +77,4 @@ public class IRDDTO implements Serializable{
 		this.tid = tid;
 	}
 
-	
-	
-	
 }
