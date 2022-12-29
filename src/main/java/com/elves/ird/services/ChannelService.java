@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,6 +13,8 @@ import com.elves.ird.dto.ChannelDTO;
 import com.elves.ird.entities.Channel;
 import com.elves.ird.entities.IRD;
 import com.elves.ird.repositories.ChannelRepository;
+import com.elves.ird.services.exceptions.DataBaseException;
+import com.elves.ird.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -29,7 +30,7 @@ public class ChannelService {
 
 	public Channel findById(Long id) {
 		Optional<Channel> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(id, "Object not found"));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Channel insert(Channel obj) {
@@ -41,9 +42,9 @@ public class ChannelService {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new Exception(e.getMessage());
+			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException(e.getMessage());
+			throw new DataBaseException(e.getMessage());
 		}
 
 	}
@@ -62,7 +63,7 @@ public class ChannelService {
 			upadateData(entity, obj);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
-			throw new Exception(e.getMessage());
+			throw new ResourceNotFoundException(id);
 		}
 
 	}
@@ -86,7 +87,7 @@ public class ChannelService {
 
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
-			throw new Exception(e.getMessage());
+			throw new ResourceNotFoundException(id);
 		}
 	}
 
@@ -97,8 +98,10 @@ public class ChannelService {
 			entity.setIrd(null);
 
 			return repository.save(entity);
-		} catch (EntityNotFoundException e) {
-			throw new Exception(e.getMessage());
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
 		}
 	}
 

@@ -3,16 +3,15 @@ package com.elves.ird.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.elves.ird.dto.IRDDTO;
 import com.elves.ird.entities.Channel;
 import com.elves.ird.entities.IRD;
 import com.elves.ird.repositories.IRDRepository;
+import com.elves.ird.services.exceptions.DataBaseException;
+import com.elves.ird.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -31,7 +30,7 @@ public class IRDService {
 
 	public IRD findById(Long id) {
 		Optional<IRD> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(id, "Object not found"));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public IRD insert(IRD obj) {
@@ -42,10 +41,10 @@ public class IRDService {
 	public void delete(Long id) throws Exception {
 		try {
 			repository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			throw new Exception(e.getMessage());
-		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException(e.getMessage());
+		} catch (ResourceNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataBaseException e) {
+			throw new DataBaseException(e.getMessage());
 		}
 
 	}
@@ -57,7 +56,7 @@ public class IRDService {
 			upadateData(entity, obj);
 			return repository.save(entity);
 		} catch (EntityNotFoundException e) {
-			throw new Exception(e.getMessage());
+			throw new ResourceNotFoundException(id);
 		}
 
 	}
@@ -85,8 +84,10 @@ public class IRDService {
 		try {
 			Channel ch = channelService.findById(id);
 			channelService.deleteIRDById(ch.getId());
-		} catch (EntityNotFoundException e) {
-			throw new Exception(e.getMessage());
+		} catch (ResourceNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataBaseException e) {
+			throw new DataBaseException(e.getMessage());
 		}
 
 	}
