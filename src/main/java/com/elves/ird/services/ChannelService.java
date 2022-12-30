@@ -50,10 +50,8 @@ public class ChannelService {
 	}
 
 	public List<Channel> findChannelBySid(Integer sid) {
-		List<Channel> list = findAll();
-		List<Channel> listNew = list.stream().filter(x -> x.getSid() == sid).collect(Collectors.toList());
-
-		return listNew;
+		List<Channel> list = repository.findAll().stream().filter(ch -> ch.getSid()==sid).collect(Collectors.toList());
+		return list;
 	}
 
 	public Channel update(Long id, Channel obj) throws Exception {

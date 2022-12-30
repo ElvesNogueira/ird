@@ -65,8 +65,8 @@ public class ChannelResource {
 
 	@GetMapping(value = "/searchBySid/{sid}")
 	public ResponseEntity<List<Channel>> findbySid(@PathVariable Integer sid) {
-		List<Channel> list = service.findChannelBySid(sid);
-		return ResponseEntity.ok().body(list);
+
+		return ResponseEntity.ok().body(service.findChannelBySid(sid));
 	}
 
 }
